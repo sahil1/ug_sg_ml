@@ -88,3 +88,17 @@ jumpData
     .expandDims(1)
     .concat(playerData, 1); //1 so that they join on horizontal direction
 ////////////////////////////////////////////////////////////
+
+//Standarization example - mean and variance (Sq. Rt variance -> Std. Deviation)
+const numbers = tf.tensor([
+    [1, 2],
+    [3, 4],
+    [5, 6]
+]);
+
+//moments works the same way as sum i.e. on all values so need to pass axis
+const { mean, variance } = tf.moments(numbers, 0);
+mean
+variance
+
+numbers.sub(mean).div(variance.pow(0.5));

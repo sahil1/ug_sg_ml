@@ -105,3 +105,20 @@ variance
 numbers.sub(mean).div(variance.pow(0.5));
 
 //Normalization gives values between 0 and 1 (lowest being 0 and highest being 1)
+
+////////////////////////////////////////////////////////////
+//Sigmoid
+
+const weights = tf.tensor([
+    [1],
+    [1]
+]);
+
+const features = tf.tensor([
+    [1,95],
+    [1, 120],
+    [1, 135],
+    [1, 175]
+]);
+
+features.matMul(weights).sigmoid();

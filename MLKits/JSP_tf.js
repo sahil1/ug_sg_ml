@@ -101,4 +101,7 @@ const { mean, variance } = tf.moments(numbers, 0);
 mean
 variance
 
+//Standardization using mean and variance gives values between -1 and 1
 numbers.sub(mean).div(variance.pow(0.5));
+
+//Normalization gives values between 0 and 1 (lowest being 0 and highest being 1)

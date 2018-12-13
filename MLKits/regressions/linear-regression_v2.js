@@ -23,49 +23,28 @@ class LinearRegression {
     }
 
     //Calculate values of m and b, and use those update our guess
-    gradientDescent(features, labels) {
-        const currentGuesses = features.matMul(this.weights);
-        const differences = currentGuesses.sub(labels);
+    gradientDescent() {
+        const currentGuesses = this.features.matMul(this.weights);
+        const differences = currentGuesses.sub(this.labels);
 
-        const slopes = features
+        const slopes = this.features
             .transpose()
             .matMul(differences)
-            .div(features.shape[0]);
+            .div(this.features.shape[0]);
 
         this.weights = this.weights.sub(slopes.mul(this.options.learningRate));
     }
 
     //upto the train method to repeatedly call gradientDescent to get optimal solution of m and b
     train() {
-        const batchQuantity = Math.floor(
-            this.features.shape[0] / this.options.batchSize
-        );
-
-        // console.log(this.options.learningRate);
-        this.bHistory.push(this.weights.get(0, 0));
-
         //don't run it for ever as you might be diverging in some cases
         for (let i = 0; i < this.options.iterations; i++) {
-            for (let j = 0; j < batchQuantity; j++) {
-                const startIndex = j * this.options.batchSize;
-                const { batchSize } = this.options;
-
-                const featureSlice = this.features.slice(
-                    [startIndex, 0],
-                    [batchSize, -1]
-                );
-                const labelSlice = this.labels.slice([startIndex, 0], [batchSize, -1]);
-
-                this.gradientDescent(featureSlice, labelSlice);
-            }
-
+            // console.log(this.options.learningRate);
+            this.bHistory.push(this.weights.get(0, 0));
+            this.gradientDescent();
             this.recordMSE();
             this.updateLearningRate();
         }
-    }
-
-    predict(observations) {
-        return this.processFeatures(observations).matMul(this.weights);
     }
 
     test(testFeatures, testLabels) {

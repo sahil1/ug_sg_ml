@@ -90,16 +90,12 @@ jumpData
 ////////////////////////////////////////////////////////////
 
 //Standarization example - mean and variance (Sq. Rt variance -> Std. Deviation)
-const numbers = tf.tensor([
-    [1, 2],
-    [3, 4],
-    [5, 6]
-]);
+const numbers = tf.tensor([[1, 2], [3, 4], [5, 6]]);
 
 //moments works the same way as sum i.e. on all values so need to pass axis
 const { mean, variance } = tf.moments(numbers, 0);
-mean
-variance
+mean;
+variance;
 
 //Standardization using mean and variance gives values between -1 and 1
 numbers.sub(mean).div(variance.pow(0.5));
@@ -109,16 +105,8 @@ numbers.sub(mean).div(variance.pow(0.5));
 ////////////////////////////////////////////////////////////
 //Sigmoid
 
-const weights = tf.tensor([
-    [1],
-    [1]
-]);
+const weights = tf.tensor([[1], [1]]);
 
-const features = tf.tensor([
-    [1,95],
-    [1, 120],
-    [1, 135],
-    [1, 175]
-]);
+const features = tf.tensor([[1, 95], [1, 120], [1, 135], [1, 175]]);
 
 features.matMul(weights).sigmoid();
